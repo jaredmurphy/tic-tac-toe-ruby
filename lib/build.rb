@@ -2,7 +2,7 @@ require "pry"
 
 module Build
 
-  class Board
+  class Board 
     attr_accessor :tiles
 
     def initialize size

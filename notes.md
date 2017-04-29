@@ -30,3 +30,6 @@ tiles
   * can move
 * computer
   * can move
+
+# need to do
+come back to board class and < array. make checking for winner a method on the board object

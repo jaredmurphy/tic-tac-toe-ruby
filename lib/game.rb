@@ -36,14 +36,13 @@ module Game
 
     def build_board
       @board = Build::Board.new(@size)
-      @board.print_board
     end
 
     def play_game
       while !@winner do
         @board.print_board
         @current_turn.play(@board.tiles)
-
+        #check_for_winner
         @current_turn = @current_turn == @player_one ? @player_two : @player_one
       end
 
@@ -53,6 +52,20 @@ module Game
     def options_left?
       choices = available_tiles(tiles)
       choices.length > 0 ? true : false
+    end
+
+    def check_for_winner
+      binding.pry
+    end
+
+    def check_horiztonal
+      @board.tiles.filter {|row| puts row.uniq.length == 1}
+    end
+
+    def check_vertical
+    end
+
+    def check_diagonal
     end
 
     def game_over
