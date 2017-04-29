@@ -19,9 +19,14 @@ game
 
 board
 * initializes tiles
+* board should be an array of tiles
+
+tiles
+* keep track of their value
+
+
 
 * player
   * can move
 * computer
   * can move
-  
