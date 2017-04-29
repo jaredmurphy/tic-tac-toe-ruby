@@ -32,11 +32,16 @@ module Build
         attr_accessor :value
         def initialize
             @value = 0
+            self.concat(" ")
         end
-        
-        def update_value(string)
-            @value = string == "X" ? 1 : -1
-            self.concat(string)
+
+        def blank?
+            self.match(/\s/) ? true : false
+        end
+
+        def update_value(symbol)
+            @value = symbol == "X" ? 1 : -1
+            self.replace(symbol)
         end
     end
 end

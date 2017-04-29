@@ -5,7 +5,7 @@ require "pry"
 module Game
     class Manager
         include Helpers
-        attr_reader :size, :board, :winner, :player_one, :player_two, :current_turn
+        #attr_reader :size, :board, :winner, :player_one, :player_two, :current_turn
 
         def initialize
             welcome_to_game
@@ -57,32 +57,34 @@ module Game
 
         def check_for_winner
             check_horiztonal
+            check_vertical
         end
 
         def check_horiztonal
-            row_total = 0
-            @board.each do |row|
-                row_total = row.reduce(0) {|prev, curr| prev += curr.value}
-
-                if row_total == @size
-                    @winner = @player_one
-                elsif row_total == -@size
-                    @winner = @player_two
-                end
-
-            end
+            check_rows(@board)
         end
 
         def check_vertical
+            rotate = @board.transpose
+            check_rows(rotate)
+        end
+
+        def check_rows(board)
+            board.each do |row|
+                row_total = row.reduce(0) {|prev, curr| prev += curr.value}
+                @winner = @player_one if row_total == @size
+                @winner = @player_two if row_total == -@size
+            end
         end
 
         def check_diagonal
         end
 
         def game_over
-            puts "game over"
+            puts "game over #{@winner.name} won!"
+            @board.print_board
         end
     end
 end
 
-x = Game::Manager.new()
+Game::Manager.new()
