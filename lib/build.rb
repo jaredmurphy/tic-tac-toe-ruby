@@ -1,47 +1,36 @@
 require "pry"
 
 module Build
+    class Board < Array
+        def initialize(size)
+            @size = size
+            make_tiles
+        end
 
-  class Board 
-    attr_accessor :tiles
+        def print_board
+            puts "Current Board: \n#{printable_board}"
+        end
 
-    def initialize size
-      @tiles = make_tiles size
+        private
+        def make_tiles
+            @size.times { self.push([])} # makes @size number of columns
+            self.map! do |row|  # makes @size number of rows in each column
+                @size.times {row.push(Build::Tile.new)}
+                row
+            end
+        end
+
+        def printable_board
+            board = self.map do |tile|
+                tile.map {|row| row}.join(" | ")
+            end
+            board.join("\n")
+        end
     end
 
-    def print_board
-      puts "Current Board: \n#{printable_board}"
+    class Tile < String
+        def update_value(string)
+            self.concat(string)
+        end
     end
-
-    private
-
-    def make_tiles(size)
-      # borrrowed from http://stackoverflow.com/a/14696789/4859818
-      # dynamically creates multi-dimensional array
-      # bug - uses the same object for tile.new
-      #Array.new(size) {Array.new(size, Build::Tile.new)}
-
-
-      board = []
-      size.times {board.push([])}
-      board.map! do |row|
-        size.times {row.push(Build::Tile.new)}
-        row
-      end
-    end
-
-    def printable_board
-      board = @tiles.map do |tile|
-        tile.map {|row| row.value}.join(" | ")
-      end
-      board.join("\n")
-    end
-  end
-
-  class Tile
-    attr_accessor :value
-    def initialize
-      @value = nil
-    end
-  end
 end

@@ -41,7 +41,7 @@ module Game
     def play_game
       while !@winner do
         @board.print_board
-        @current_turn.play(@board.tiles)
+        @current_turn.play(@board)
         #check_for_winner
         @current_turn = @current_turn == @player_one ? @player_two : @player_one
       end

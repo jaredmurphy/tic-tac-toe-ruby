@@ -2,17 +2,12 @@ require "pry"
 require_relative "helpers"
 module Player
     class Player
-        include Helpers
+        include Helpers # available_tiles method is from helpers
 
         attr_reader :name, :symbol
         def initialize(name, symbol)
             @name = name
             @symbol = symbol
-        end
-
-        private
-        def update_tile(tile, symbol)
-            tile.value = symbol
         end
     end
 
@@ -24,7 +19,7 @@ module Player
                 selection = prompt_user(board) {puts "Whoops! Looks like you made a bad selection. Try again!"}
                 good_selection = available_tiles(board).include? selection
             end
-            update_tile(selection, @symbol)
+            selection.update_value(@symbol)
         end
 
         private
@@ -47,13 +42,14 @@ module Player
     class Computer < Player
         def play(board)
             puts "i am going to think of a good tile to play now"
+            binding.pry
             random_move(board)
         end
 
         private
-        def random_move(tiles)
-            choices = available_tiles(tiles)
-            update_tile(choices.sample, @symbol)
+        def random_move(board)
+            choices = available_tiles(board)
+            choices.sample.update_value(@symbol)
         end
     end
 end
