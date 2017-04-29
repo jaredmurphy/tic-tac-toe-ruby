@@ -29,7 +29,13 @@ module Build
     end
 
     class Tile < String
+        attr_accessor :value
+        def initialize
+            @value = 0
+        end
+        
         def update_value(string)
+            @value = string == "X" ? 1 : -1
             self.concat(string)
         end
     end

@@ -42,7 +42,6 @@ module Player
     class Computer < Player
         def play(board)
             puts "i am going to think of a good tile to play now"
-            binding.pry
             random_move(board)
         end
 
