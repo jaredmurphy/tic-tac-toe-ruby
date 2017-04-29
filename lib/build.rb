@@ -18,14 +18,14 @@ module Build
     def make_tiles(size)
       # borrrowed from http://stackoverflow.com/a/14696789/4859818
       # dynamically creates multi-dimensional array
-      # bug - uses the same object for tile.new 
+      # bug - uses the same object for tile.new
       #Array.new(size) {Array.new(size, Build::Tile.new)}
 
 
       board = []
       size.times {board.push([])}
       board.map! do |row|
-        size.times { row.push(Build::Tile.new)}
+        size.times {row.push(Build::Tile.new)}
         row
       end
     end

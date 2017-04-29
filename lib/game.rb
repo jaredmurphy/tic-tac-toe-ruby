@@ -4,6 +4,7 @@ require "pry"
 
 module Game
   class Manager
+    include Helpers
     attr_reader :size,  :board, :winner, :player_one, :player_two, :current_turn
 
     def initialize
@@ -11,14 +12,14 @@ module Game
       make_players
       build_board
       @winner = nil
-      @current_turn = @player_one
+      @current_turn = randomize_starter
       play_game
     end
 
     private
-    # def randomize_starter
-    #   [@player_one, @player_two].sample
-    # end
+    def randomize_starter
+      [@player_one, @player_two].sample
+    end
 
     def welcome_to_game
       puts "hi welcome to tic tac toe! \nhow big would you like your board to be?"
@@ -42,12 +43,17 @@ module Game
       while !@winner do
         @board.print_board
         @current_turn.play(@board.tiles)
+
         @current_turn = @current_turn == @player_one ? @player_two : @player_one
       end
 
       game_over
     end
 
+    def options_left?
+      choices = available_tiles(tiles)
+      choices.length > 0 ? true : false
+    end
 
     def game_over
       puts "game over"
