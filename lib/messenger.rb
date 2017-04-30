@@ -1,5 +1,3 @@
-require 'pry'
-
 module Messenger
   class Prompt
     def response_correction(correction)
@@ -35,6 +33,21 @@ module Messenger
         puts "What is the #{type} player's name?"
         gets.chomp
     end
+
+    def play_again?
+        puts "Would you like to play again? - y or n"
+        yield if block_given?
+        response = gets.chomp.downcase
+        if response == "y"
+            return true
+        elsif response == "n"
+            return false
+        else
+            play_again? { response_correction("'y' or 'n'")}
+        end
+
+    end
+
   end
 
   class Notice
@@ -46,8 +59,8 @@ module Messenger
       puts "Okay, this will be a human vs #{type} game"
     end
 
-    def game_over
-        puts puts "Game Over #{@game_status}"
+    def game_over(game_status)
+        puts "Game Over #{game_status}"
     end
 
     def print_board(board)
@@ -57,6 +70,8 @@ module Messenger
     def player_order
 
     end
+
+
 
     private
     def printable_board(board)
@@ -68,9 +83,6 @@ module Messenger
         guide = (0..board.length - 1).collect {|i| "#{i + 1}   "}.join("")
         "#{guide}\n#{board_lines}"
     end
-  end
-
-  class PrintBoard
   end
 
   class Hint

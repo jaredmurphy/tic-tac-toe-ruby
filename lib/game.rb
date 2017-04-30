@@ -2,12 +2,8 @@ require_relative "player"
 require_relative "build"
 require_relative "messenger"
 require_relative "check_for_winner"
-# require_relative "game_mode"
-require "pry"
 
 module Game
-    include Messenger
-
     class Starter
         def initialize
             @notice = Messenger::Notice.new
@@ -36,8 +32,7 @@ module Game
 
     class Manager < CheckForWinner
         include Helpers
-        include Messenger
-
+        
         def initialize
             @prompt = Messenger::Prompt.new
             @notice = Messenger::Notice.new
@@ -91,17 +86,7 @@ module Game
         end
 
         def play_again?
-            puts "Would you like to play again? - y or n"
-            yield if block_given?
-            response = gets.chomp.downcase
-
-            if response == "y"
-                true
-            elsif response == "n"
-                false
-            else
-                play_again? { puts "Please type 'y' or 'n'"}
-            end
+            @prompt.play_again?
         end
 
         def reset_game
