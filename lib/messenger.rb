@@ -5,10 +5,11 @@ module Messenger
     end
 
     def game_mode
-      puts "Do you want to play against the computer or another player? - say 'computer' or 'human'"
+      puts "Which game mode would you like to play? - say 'computer', 'hint' or 'human'"
+      puts "Hint Mode is only vs the computer"
       yield if block_given?
       response = gets.chomp
-      game_mode {response_correction("'computer' or 'human'")} unless response == "computer" || response == "human"
+      game_mode {response_correction("'computer' or 'human'")} unless response == "computer" || response == "human" || response == "hint"
       response
     end
 
@@ -73,6 +74,10 @@ module Messenger
 
     def print_board(board)
         puts "Current Board: \n#{printable_board(board)}"
+    end
+
+    def current_turn(player_name)
+        puts "It is #{player_name}'s turn"
     end
 
     def player_order
