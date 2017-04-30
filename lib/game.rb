@@ -159,7 +159,6 @@ module Game
         def get_hint_if_human
             # as long as the current player is not the computer, get a hint
             opponent = @player_one == @current_turn ? @player_two : @player_one
-            #puts "opponent #{opponent}"
             @hint.get_hint(@board, @current_turn.symbol, opponent.symbol) unless @current_turn.name == "Computer"
         end
 
