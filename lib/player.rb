@@ -1,11 +1,11 @@
-require "pry"
 require_relative "helpers"
 require_relative "messenger"
+
 module Player
     class Player
         include Helpers
-
         attr_reader :name, :symbol
+
         def initialize(name, symbol)
             @name = name
             @symbol = symbol

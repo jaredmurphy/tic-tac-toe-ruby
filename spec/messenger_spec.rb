@@ -50,7 +50,3 @@ describe Messenger::Notice do
     end
   end
 end
-
-  # hint
-
-  #print Board

@@ -19,6 +19,7 @@ An object-oriented Terminal game written in Ruby
 * Random Starter
 * Handles Ties
 * User Input Validation
+* Hint Mode
 
 # winner detection
 The `CheckForWinner` class checks to see if either player has met a requirement for winning after each turn

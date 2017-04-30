@@ -101,6 +101,7 @@ module Messenger
       type, value = hint_hash.first
       puts "HINT!\nYou should always block your opponent!\nGo ahead, block their next #{type} move!"
     end
+    
     def win_hint(hint_hash)
       type, value = hint_hash.first
       puts "HINT!\nYou should always play the winning move if you can!\nGo ahread, you've got a #{type} move open right now!"
