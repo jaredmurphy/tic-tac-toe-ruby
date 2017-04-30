@@ -32,7 +32,7 @@ module Game
 
     class Manager < CheckForWinner
         include Helpers
-        
+
         def initialize
             @prompt = Messenger::Prompt.new
             @notice = Messenger::Notice.new
@@ -59,6 +59,7 @@ module Game
                 @notice.print_board(@board)
                 @current_turn.play(@board)
                 check_for_winner
+                update_tie if !options_left?
 
                 @current_turn = @current_turn == @player_one ? @player_two : @player_one
             end
@@ -69,9 +70,9 @@ module Game
             @winner = "tie"
             @game_status = "Its a Tie!"
         end
-        # use of module mixin
+
         def options_left?
-            choices = available_tiles(tiles)
+            choices = available_tiles(@board)
             choices.length > 0 ? true : false
         end
 
