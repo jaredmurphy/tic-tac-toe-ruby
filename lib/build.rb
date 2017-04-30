@@ -12,6 +12,7 @@ module Build
         end
 
         private
+        
         def make_tiles
             @size.times { self.push([])} # makes @size number of columns
             self.map! do |row|  # makes @size number of rows in each column
