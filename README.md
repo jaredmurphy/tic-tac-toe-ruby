@@ -7,20 +7,6 @@ An object-oriented Terminal game written in Ruby
 3. follow the prompts
 4. have fun!
 
-# features
-* Demonstrates use of object-oriented programming such as inheritance, polymorphism, and module mixins
-* Player vs Computer
-* Dynamic algorithm for winner detection
-* Choice between playing as `X` or `O`
-* Announces winner and allows user to play again
-* Dynamic Grid Size
-* Some tests in RSpec
-* Player vs Player
-* Random Starter
-* Handles Ties
-* User Input Validation
-* Hint Mode
-
 # winner detection
 The `CheckForWinner` class checks to see if either player has met a requirement for winning after each turn
 
