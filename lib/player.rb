@@ -1,41 +1,39 @@
 require "pry"
 require_relative "helpers"
+require_relative "messenger"
 module Player
     class Player
-        include Helpers # available_tiles method is from helpers
+        include Helpers
 
         attr_reader :name, :symbol
         def initialize(name, symbol)
             @name = name
             @symbol = symbol
+            @prompt = Messenger::Prompt.new
         end
     end
 
     class Human < Player
         def play(board)
-            selection = prompt_user(board)
-            good_selection = available_tiles(board).include? selection
-            while !good_selection do
-                selection = prompt_user(board) {puts "Whoops! Looks like you made a bad selection. Try again!"}
-                good_selection = available_tiles(board).include? selection
-            end
+            selection = pick_tiles(board)
+            validate_availablility(selection, board)
             selection.update_value(@symbol)
         end
 
         private
-        def prompt_user(board)
+        def pick_tiles(board)
             yield if block_given?
-            board[get_col - 1][get_row - 1]
+            row = @prompt.pick_tile(@name, board, "row")
+            col = @prompt.pick_tile(@name, board, "column")
+            board[row - 1][col - 1]
         end
 
-        def get_col
-            puts "Hey #{@name} tell me the column you would like to play"
-            gets.chomp.to_i
-        end
-
-        def get_row
-            puts "Okay now the row"
-            gets.chomp.to_i
+        def validate_availablility(selection, board)
+            good_selection = available_tiles(board).include? selection
+            while !good_selection do
+                selection = pick_tiles(board) {puts "Whoops! Looks like you made a bad selection. Try again!"}
+                good_selection = available_tiles(board).include? selection
+            end
         end
     end
 

@@ -45,7 +45,15 @@ module Messenger
         else
             play_again? { response_correction("'y' or 'n'")}
         end
+    end
 
+    def pick_tile(name, board, row_or_col)
+        puts "Hey #{name} tell me the #{row_or_col} you would like to play"
+        response = gets.chomp.to_i
+        if response > board.length || response < 0
+            pick_tile { response_correction("'Please choose a valid space on the board'")}
+        end
+        response
     end
 
   end
@@ -71,8 +79,6 @@ module Messenger
 
     end
 
-
-
     private
     def printable_board(board)
         # board_lines makes the lines between each position on the board
@@ -86,5 +92,13 @@ module Messenger
   end
 
   class Hint
+    def block_hint(hint_hash)
+      type, value = hint_hash.first
+      puts "HINT!\nYou should always block your opponent!\nGo ahead, block their next #{type} move!"
+    end
+    def win_hint(hint_hash)
+      type, value = hint_hash.first
+      puts "HINT!\nYou should always play the winning move if you can!\nGo ahread, you've got a #{type} move open right now!"
+    end
   end
 end

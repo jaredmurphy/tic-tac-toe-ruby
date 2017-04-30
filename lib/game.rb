@@ -76,10 +76,6 @@ module Game
             choices.length > 0 ? true : false
         end
 
-        ###
-        ### end of game
-        ###
-
         def game_over
             @notice.game_over(@game_status)
             @notice.print_board(@board)
@@ -111,8 +107,6 @@ module Game
         end
     end
 
-
-
     class VsComputerMode < Game::Manager
         private
         def set_up_players
@@ -126,14 +120,12 @@ module Game
         end
     end
 
+    # class HintMode < GameManager
+    # end
+    #
+    # class IntelligentMode < GameManager
+    # end
+
 end # ends Game module
 
-
 Game::Starter.new
-
-#
-# class HintMode < GameManager
-# end
-#
-# class IntelligentMode < GameManager
-# end
