@@ -1,16 +1,20 @@
 module Messenger
   class Prompt
     def response_correction(correction)
-      "Woops! Please type in only - #{correction}"
+      "Woops! Please type in only: #{correction}"
     end
 
-    def game_mode
-      puts "Which game mode would you like to play? - say 'computer', 'hint' or 'human'"
-      puts "Hint Mode is only vs the computer"
+    def select_game_mode
       yield if block_given?
+
+      puts "Which game mode would you like to play? (computer, hint, human)"
       response = gets.chomp
-      game_mode {response_correction("'computer' or 'human'")} unless response == "computer" || response == "human" || response == "hint"
-      response
+
+      if valid_game_modes.include? response
+        response.to_sym
+      else
+        select_game_mode { puts response_correction("'computer' or 'human'") }
+      end
     end
 
     def board_size
@@ -57,6 +61,11 @@ module Messenger
         response
     end
 
+    private
+
+    def valid_game_modes
+      %w(computer human hint)
+    end
   end
 
   class Notice
@@ -85,6 +94,7 @@ module Messenger
     end
 
     private
+
     def printable_board(board)
         # board_lines makes the lines between each position on the board
         board_lines = board.map do |tile|
@@ -101,7 +111,7 @@ module Messenger
       type, value = hint_hash.first
       puts "HINT!\nYou should always block your opponent!\nGo ahead, block their next #{type} move!"
     end
-    
+
     def win_hint(hint_hash)
       type, value = hint_hash.first
       puts "HINT!\nYou should always play the winning move if you can!\nGo ahread, you've got a #{type} move open right now!"
