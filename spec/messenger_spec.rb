@@ -1,6 +1,5 @@
-
 require 'spec_helper'
-require_relative '../lib/messenger'
+require_relative '../lib/tic_tac_toe/messenger'
 
 describe Messenger::Prompt do
   describe "#game_mode" do
@@ -10,14 +9,14 @@ describe Messenger::Prompt do
     end
 
     it "returns a correct game mode response from the user" do
-      expect(Messenger::Prompt.new.game_mode).to eq(input)
+      expect(Messenger::Prompt.new.select_game_mode).to eq(input.to_sym)
     end
   end
 
   describe "#response_correction" do
     it "formats a response string with input" do
       input = "'y' or 'n'"
-      expected_response = "Woops! Please type in only - #{input}"
+      expected_response = "Woops! Please type in only: #{input}"
       expect(Messenger::Prompt.new.response_correction(input)).to eq(expected_response)
     end
   end
